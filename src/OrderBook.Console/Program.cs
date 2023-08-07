@@ -39,7 +39,7 @@ for (int i = 0; i < accountAmount; i++)
 }
 
 var dataReaderService = new DataReaderService();
-var orderBookService = new OrderBookService(new DataReaderService());
+var orderBookService = new OrderBookService();
 var result = new List<Order>();
 
 try
