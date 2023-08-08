@@ -1,6 +1,6 @@
 ﻿using OrderBook.Domain.Entities;
 
-namespace OrderBook.Infrastructure.Interfaces;
+namespace OrderBook.Application.Interfaces;
 
 public interface IDataReaderService
 {

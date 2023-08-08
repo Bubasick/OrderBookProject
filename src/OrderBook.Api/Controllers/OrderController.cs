@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OrderBook.Api.Requests;
-using OrderBook.Application;
+using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 
 namespace OrderBook.Api.Controllers
@@ -15,7 +15,7 @@ namespace OrderBook.Api.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost("CalculateOptimalStrategy")]
         public IEnumerable<Order> CalculateOptimalStrategy([FromBody] CalculateOptimalStrategyRequest request, OperationType operation, decimal btcAmount)
         {
             return _service.CalculateOptimalStrategy(request.Orders, request.Accounts, operation, btcAmount);

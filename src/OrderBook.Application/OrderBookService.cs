@@ -1,4 +1,5 @@
 ﻿using OrderBook.Application.Exceptions;
+using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 
 namespace OrderBook.Application;

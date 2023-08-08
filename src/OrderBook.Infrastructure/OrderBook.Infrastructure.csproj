@@ -7,14 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OrderBook.Application\OrderBook.Application.csproj" />
     <ProjectReference Include="..\OrderBook.Domain\OrderBook.Domain.csproj" />
   </ItemGroup>
 

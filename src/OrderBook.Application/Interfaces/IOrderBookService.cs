@@ -1,6 +1,6 @@
 ﻿using OrderBook.Domain.Entities;
 
-namespace OrderBook.Application;
+namespace OrderBook.Application.Interfaces;
 
 public interface IOrderBookService
 {
