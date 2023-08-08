@@ -17,22 +17,22 @@ namespace OrderBook.Tests
             {
                 new Order()
                 {
-                    Id = (decimal)1,
-                    Amount = (decimal)0.1,
+                    Id = 1m,
+                    Amount = 0.1m,
                     Price = 2002,
                     Type = OperationType.Buy
                 },
                 new Order()
                 {
-                    Id = (decimal)2,
-                    Amount = (decimal)0.2,
+                    Id = 2m,
+                    Amount = 0.2m,
                     Price = 2000,
                     Type = OperationType.Buy
                 },
                 new Order()
                 {
-                    Id = (decimal)1,
-                    Amount = (decimal)0.1,
+                    Id = 1m,
+                    Amount = 0.1m,
                     Price = 2000,
                     Type = OperationType.Sell
                 },
@@ -49,7 +49,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenBuy_ShouldReturn_CalculatedData()
         {
-            var btcAmount = (decimal)0.1;
+            var btcAmount = 0.1m;
             var operation = OperationType.Buy;
             var accounts = new List<Account>()
             {
@@ -76,7 +76,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenNoSuitableOrders_ShouldThrow_NotFoundException()
         {
-            var btcAmount = (decimal)0.1;
+            var btcAmount = 0.1m;
             var operation = OperationType.Buy;
             var accounts = new List<Account>()
             {
@@ -94,7 +94,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenNotEnoughBalanceOnAccounts_ShouldThrow_BalanceTooLowException()
         {
-            var btcAmount = (decimal)0.1;
+            var btcAmount = 0.1m;
             var operation = OperationType.Buy;
             var accounts = new List<Account>()
             {
@@ -112,7 +112,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenAmountExceedsAvailableOnMarket_ShouldThrow_RequestExceedsMarketException()
         {
-            var btcAmount = (decimal)100;
+            var btcAmount = 100m;
             var operation = OperationType.Buy;
             var accounts = new List<Account>()
             {
@@ -130,7 +130,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenAccountIdsAreNotUnique_ShouldThrow_EntityShouldBeUniqueException()
         {
-            var btcAmount = (decimal)100;
+            var btcAmount = 100m;
             var operation = OperationType.Buy;
             var accounts = new List<Account>()
             {
@@ -149,7 +149,7 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenSell_ShouldReturn_CalculatedData()
         {
-            var btcAmount = (decimal)0.1;
+            var btcAmount = 0.1m;
             var operation = OperationType.Sell;
             var accounts = new List<Account>()
             {
