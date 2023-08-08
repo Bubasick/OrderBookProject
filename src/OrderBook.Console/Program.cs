@@ -45,6 +45,9 @@ try
 {
     var metaExchanges = dataReaderService.GetData();
     var orders = metaExchanges.SelectMany(x => x.Bids.Select(x => x.Order)).ToList();
+    var asks = metaExchanges.SelectMany(x => x.Asks.Select(x => x.Order)).ToList();
+
+    orders.AddRange(asks);
     result = orderBookService.CalculateOptimalStrategy(orders, accounts, operationType, btcAmount);
 }
 catch (Exception ex)
