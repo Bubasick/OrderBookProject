@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using OrderBook.Domain.Entities;
 
 namespace OrderBook.Domain;
 

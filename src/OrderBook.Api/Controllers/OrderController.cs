@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OrderBook.Api.Requests;
 using OrderBook.Application;
-using OrderBook.Domain;
+using OrderBook.Domain.Entities;
 
 namespace OrderBook.Api.Controllers
 {

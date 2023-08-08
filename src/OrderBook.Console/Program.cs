@@ -2,7 +2,7 @@
 
 using System.Globalization;
 using OrderBook.Application;
-using OrderBook.Domain;
+using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 
 

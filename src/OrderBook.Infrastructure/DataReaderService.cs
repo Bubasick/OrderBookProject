@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
-using OrderBook.Domain;
+using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure.Interfaces;
 
 namespace OrderBook.Infrastructure;

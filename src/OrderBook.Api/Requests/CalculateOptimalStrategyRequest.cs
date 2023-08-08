@@ -1,4 +1,4 @@
-﻿using OrderBook.Domain;
+﻿using OrderBook.Domain.Entities;
 
 namespace OrderBook.Api.Requests
 {

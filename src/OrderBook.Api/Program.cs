@@ -12,9 +12,7 @@ builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerial
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped<IValidator<CalculateOptimalStrategyRequest>, CalculateOptimalStrategyRequestValidator>();
-builder.Services.AddDataServices(builder.Configuration);
-builder.Services.AddApplicationServices();
+builder.Services.AddScoped<IOrderBookService, OrderBookService>();
 builder.Services.AddScoped<IDataReaderService, DataReaderService>();
 
 var app = builder.Build();
