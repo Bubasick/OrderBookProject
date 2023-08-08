@@ -5,13 +5,13 @@ using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 using System.Globalization;
 
-Console.WriteLine("Please, specify the type of operation you want to perform");
+Console.WriteLine("Please, specify the type of operation you want to perform:");
 var operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());
 
-Console.WriteLine("Please, specify the amount of btc you want to sell / buy");
+Console.WriteLine("Please, specify the amount of btc you want to sell / buy:");
 var btcAmount = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-Console.WriteLine("Please, specify the amount of accounts you have");
+Console.WriteLine("Please, specify the amount of accounts you have:");
 var accountAmount = int.Parse(Console.ReadLine());
 
 var accounts = new List<Account>();
@@ -19,18 +19,18 @@ var accounts = new List<Account>();
 for (var i = 0; i < accountAmount; i++)
 {
     var account = new Account();
-    Console.WriteLine("Please, specify account id (equals to metaExchange id)");
+    Console.WriteLine("Please, specify account id (equals to metaExchange id):");
     account.MetaExchangeId = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
     if (operationType == OperationType.Sell)
     {
-        Console.WriteLine("Please, specify the amount of btc you have on this account");
+        Console.WriteLine("Please, specify the amount of btc you have on this account:");
         account.BtcBalance = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
     }
 
     if (operationType == OperationType.Buy)
     {
-        Console.WriteLine("Please, specify the amount of euro you have on this account");
+        Console.WriteLine("Please, specify the amount of euro you have on this account:");
         account.EuroBalance = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
     }
 
