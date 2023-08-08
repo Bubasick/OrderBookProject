@@ -1,4 +1,4 @@
-﻿namespace OrderBook.Domain;
+﻿namespace OrderBook.Domain.Entities;
 
 public class Account
 {

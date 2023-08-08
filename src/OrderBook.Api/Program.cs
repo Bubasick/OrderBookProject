@@ -2,7 +2,6 @@ using OrderBook.Application;
 using OrderBook.Infrastructure;
 using OrderBook.Infrastructure.Interfaces;
 using System.Text.Json.Serialization;
-using OrderBook.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
