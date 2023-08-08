@@ -8,10 +8,6 @@ namespace OrderBook.Application;
 
 public class OrderBookService : IOrderBookService
 {
-    public OrderBookService()
-    {
-    }
-
     public List<Order> CalculateOptimalStrategy(List<Order> orders,List<Account> accounts, OperationType operation, decimal amount)
     {
         ValidateAccounts(accounts);
@@ -34,6 +30,13 @@ public class OrderBookService : IOrderBookService
 
     private List<Order> CalculateOptimalBuys(List<Order> orders, List<Account> accounts, decimal buyAmount)
     {
+        accounts = accounts.Where(x => x.EuroBalance > 0).ToList();
+
+        if (!accounts.Any())
+        {
+            throw new BalanceTooLowException(buyAmount);
+        }
+
         var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
         
         orders = orders
@@ -45,6 +48,7 @@ public class OrderBookService : IOrderBookService
         {
             throw new NotFoundException(nameof(Order));
         }
+
         var result = new List<Order>();
 
         foreach (var order in orders)
@@ -66,7 +70,7 @@ public class OrderBookService : IOrderBookService
                 continue;
             }
 
-            decimal howMuchCanBuy = account.EuroBalance / order.Price;
+            var howMuchCanBuy = account.EuroBalance / order.Price;
 
 
             howMuchCanBuy = new List<decimal>()
@@ -108,6 +112,13 @@ public class OrderBookService : IOrderBookService
 
     private List<Order> CalculateOptimalSells(List<Order> orders, List<Account> accounts, decimal sellAmount)
     {
+        accounts = accounts.Where(x => x.BtcBalance > 0).ToList();
+
+        if (!accounts.Any())
+        {
+            throw new BalanceTooLowException(sellAmount);
+        }
+
         var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
         
         orders = orders
@@ -121,7 +132,6 @@ public class OrderBookService : IOrderBookService
         {
             throw new NotFoundException(nameof(Order));
         }
-        
 
         foreach (var order in orders)
         {
@@ -142,7 +152,7 @@ public class OrderBookService : IOrderBookService
                 continue;
             }
 
-            decimal howMuchCanSell = new List<decimal>()
+            var howMuchCanSell = new List<decimal>()
             {
                 account.BtcBalance,
                 sellAmount,

@@ -7,20 +7,15 @@ namespace OrderBook.Infrastructure;
 
 public class DataReaderService : IDataReaderService
 {
-    public DataReaderService()
-    {
-
-    }
-
     public List<MetaExchange> GetData()
     {
-        string path = @"C:/All/Projects//OrderBookProject/order_books_data";
-        string[] lines = File.ReadAllLines(path);
+        var path = @"C:/All/Projects//OrderBookProject/order_books_data";
+        var lines = File.ReadAllLines(path);
 
         var result = new List<MetaExchange>();
 
         
-        foreach (string line in lines)
+        foreach (var line in lines)
         {
             var idStr =  Helper.GetUntilOrEmpty(line, "{").TrimEnd();
 
