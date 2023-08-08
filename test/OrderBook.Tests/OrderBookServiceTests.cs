@@ -49,9 +49,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenBuy_ShouldReturn_CalculatedData()
         {
-            decimal btcAmount = (decimal)0.1;
+            var btcAmount = (decimal)0.1;
             var operation = OperationType.Buy;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(1, 10, 200)
             };
@@ -76,9 +76,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenNoSuitableOrders_ShouldThrow_NotFoundException()
         {
-            decimal btcAmount = (decimal)0.1;
+            var btcAmount = (decimal)0.1;
             var operation = OperationType.Buy;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(3, 10, 200)
             };
@@ -94,9 +94,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenNotEnoughBalanceOnAccounts_ShouldThrow_BalanceTooLowException()
         {
-            decimal btcAmount = (decimal)0.1;
+            var btcAmount = (decimal)0.1;
             var operation = OperationType.Buy;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(1, 0, 0)
             };
@@ -112,9 +112,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenAmountExceedsAvailableOnMarket_ShouldThrow_RequestExceedsMarketException()
         {
-            decimal btcAmount = (decimal)100;
+            var btcAmount = (decimal)100;
             var operation = OperationType.Buy;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(1, 0, 100000000)
             };
@@ -129,9 +129,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenAccountIdsAreNotUnique_ShouldThrow_EntityShouldBeUniqueException()
         {
-            decimal btcAmount = (decimal)100;
+            var btcAmount = (decimal)100;
             var operation = OperationType.Buy;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(1, 0, 100000000),
                 new Account(1, 0, 100000000)
@@ -149,9 +149,9 @@ namespace OrderBook.Tests
         [Fact]
         public void CalculateOptimalStrategy_WhenSell_ShouldReturn_CalculatedData()
         {
-            decimal btcAmount = (decimal)0.1;
+            var btcAmount = (decimal)0.1;
             var operation = OperationType.Sell;
-            List<Account> accounts = new List<Account>()
+            var accounts = new List<Account>()
             {
                 new Account(1, 10, 200)
             };

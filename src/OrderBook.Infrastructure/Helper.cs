@@ -9,7 +9,7 @@ public static class Helper
     {
         if (!String.IsNullOrWhiteSpace(text))
         {
-            int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
+            var charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
 
             if (charLocation > 0)
             {

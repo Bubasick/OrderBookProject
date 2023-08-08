@@ -7,7 +7,7 @@ using OrderBook.Infrastructure;
 
 
 Console.WriteLine("Please, specify the type of operation you want to perform");
-OperationType operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());
+var operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());
 
 Console.WriteLine("Please, specify the amount of btc you want to sell / buy");
 var btcAmount = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
@@ -15,11 +15,11 @@ var btcAmount = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 Console.WriteLine("Please, specify the amount of accounts you have");
 var accountAmount = int.Parse(Console.ReadLine());
 
-List<Account> accounts = new List<Account>();
+var accounts = new List<Account>();
 
-for (int i = 0; i < accountAmount; i++)
+for (var i = 0; i < accountAmount; i++)
 {
-    Account account = new Account();
+    var account = new Account();
     Console.WriteLine("Please, specify account id (equals to metaExchange id)");
     account.MetaExchangeId = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
