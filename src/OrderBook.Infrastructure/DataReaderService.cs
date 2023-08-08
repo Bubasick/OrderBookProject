@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
+using System.Globalization;
 
 namespace OrderBook.Infrastructure;
 
@@ -13,7 +13,6 @@ public class DataReaderService : IDataReaderService
         var lines = File.ReadAllLines(path);
 
         var result = new List<MetaExchange>();
-
 
         foreach (var line in lines)
         {

@@ -7,5 +7,4 @@ public class Order
     public OperationType Type { get; set; }
     public decimal Amount { get; set; }
     public decimal Price { get; set; }
-
 }

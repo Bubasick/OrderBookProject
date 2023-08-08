@@ -10,6 +10,7 @@ namespace OrderBook.Api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderBookService _service;
+
         public OrderController(IOrderBookService service)
         {
             _service = service;

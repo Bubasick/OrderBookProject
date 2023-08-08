@@ -6,21 +6,21 @@ namespace OrderBook.Application;
 
 public class OrderBookService : IOrderBookService
 {
-    public List<Order> CalculateOptimalStrategy(List<Order> orders,List<Account> accounts, OperationType operation, decimal amount)
+    public List<Order> CalculateOptimalStrategy(List<Order> orders, List<Account> accounts, OperationType operation, decimal amount)
     {
         ValidateAccounts(accounts);
 
         switch (operation)
         {
             case OperationType.Buy:
-            {
-                return CalculateOptimalBuys(orders, accounts, amount);
-            }
-            
+                {
+                    return CalculateOptimalBuys(orders, accounts, amount);
+                }
+
             case OperationType.Sell:
-            {
-                return CalculateOptimalSells(orders, accounts, amount);
-            }
+                {
+                    return CalculateOptimalSells(orders, accounts, amount);
+                }
 
             default: return new List<Order>();
         }
@@ -36,10 +36,10 @@ public class OrderBookService : IOrderBookService
         }
 
         var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
-        
+
         orders = orders
             .Where(order => order.Id.HasValue && accountIdList.Contains(order.Id.Value))
-            .Where(x=> x.Type == OperationType.Sell)
+            .Where(x => x.Type == OperationType.Sell)
             .OrderBy(x => x.Price).ToList();
 
         if (!orders.Any())
@@ -70,7 +70,6 @@ public class OrderBookService : IOrderBookService
 
             var howMuchCanBuy = account.EuroBalance / order.Price;
 
-
             howMuchCanBuy = new List<decimal>()
             {
                 howMuchCanBuy,
@@ -94,12 +93,11 @@ public class OrderBookService : IOrderBookService
                 Amount = howMuchCanBuy,
                 Price = order.Price,
                 Type = OperationType.Buy
-
             };
 
             result.Add(resultOrder);
         }
-        
+
         if (buyAmount > 0)
         {
             throw new RequestExceedsMarketException(buyAmount);
@@ -118,7 +116,7 @@ public class OrderBookService : IOrderBookService
         }
 
         var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
-        
+
         orders = orders
             .Where(order => order.Id.HasValue && accountIdList.Contains(order.Id.Value))
             .Where(x => x.Type == OperationType.Buy)
@@ -162,7 +160,7 @@ public class OrderBookService : IOrderBookService
             account.BtcBalance -= howMuchCanSell;
             sellAmount -= howMuchCanSell;
 
-            if (account.BtcBalance <= 0) 
+            if (account.BtcBalance <= 0)
             {
                 accounts.Remove(account);
             }
@@ -173,7 +171,6 @@ public class OrderBookService : IOrderBookService
                 Amount = howMuchCanSell,
                 Price = order.Price,
                 Type = OperationType.Sell
-
             };
 
             result.Add(resultOrder);

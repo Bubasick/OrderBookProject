@@ -13,7 +13,7 @@ namespace OrderBook.Tests
         public OrderBookServiceTests()
         {
             _service = new OrderBookService();
-             orders = new List<Order>()
+            orders = new List<Order>()
             {
                 new Order()
                 {
@@ -62,9 +62,9 @@ namespace OrderBook.Tests
                 Price = 2000,
                 Type = OperationType.Buy
             };
-                
+
             //Act
-            var actual =  _service.CalculateOptimalStrategy(orders,accounts,operation,btcAmount);
+            var actual = _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -126,6 +126,7 @@ namespace OrderBook.Tests
             Assert.NotNull(actual);
             Assert.Throws<RequestExceedsMarketException>(actual);
         }
+
         [Fact]
         public void CalculateOptimalStrategy_WhenAccountIdsAreNotUnique_ShouldThrow_EntityShouldBeUniqueException()
         {
@@ -144,7 +145,6 @@ namespace OrderBook.Tests
             Assert.NotNull(actual);
             Assert.Throws<EntityShouldBeUniqueException>(actual);
         }
-
 
         [Fact]
         public void CalculateOptimalStrategy_WhenSell_ShouldReturn_CalculatedData()

@@ -1,6 +1,6 @@
+using OrderBook.Application.Exceptions;
 using System.Net;
 using System.Text.Json;
-using OrderBook.Application.Exceptions;
 
 namespace OrderBook.Api;
 
@@ -30,14 +30,17 @@ public class ErrorHandlerMiddleware
                     // not found error
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
+
                 case RequestExceedsMarketException e:
                     // not found error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
+
                 case BalanceTooLowException e:
                     // not found error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
+
                 default:
                     // unhandled error
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;

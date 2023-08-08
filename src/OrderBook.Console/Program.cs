@@ -1,10 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Globalization;
 using OrderBook.Application;
 using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
-
+using System.Globalization;
 
 Console.WriteLine("Please, specify the type of operation you want to perform");
 var operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());
@@ -46,7 +45,7 @@ try
 {
     var metaExchanges = dataReaderService.GetData();
     var orders = metaExchanges.SelectMany(x => x.Bids.Select(x => x.Order)).ToList();
-    result = orderBookService.CalculateOptimalStrategy(orders, accounts, operationType,btcAmount);
+    result = orderBookService.CalculateOptimalStrategy(orders, accounts, operationType, btcAmount);
 }
 catch (Exception ex)
 {
@@ -60,5 +59,3 @@ foreach (var order in result)
     Console.WriteLine($"Order amount: {order.Amount}");
     Console.WriteLine($"Order price: {order.Price}");
 }
-
-

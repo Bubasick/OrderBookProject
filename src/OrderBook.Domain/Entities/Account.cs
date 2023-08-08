@@ -4,7 +4,6 @@ public class Account
 {
     public Account()
     {
-        
     }
 
     public Account(decimal Id, decimal btcBalance, decimal euroBalance)
