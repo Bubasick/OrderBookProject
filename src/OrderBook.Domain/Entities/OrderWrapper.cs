@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OrderBook.Domain;
+﻿namespace OrderBook.Domain;
 
 public class OrderWrapper
 {

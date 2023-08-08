@@ -3,8 +3,6 @@ using OrderBook.Infrastructure;
 using OrderBook.Infrastructure.Interfaces;
 using System.Text.Json.Serialization;
 using OrderBook.Domain;
-using FluentValidation;
-using OrderBook.Api.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 

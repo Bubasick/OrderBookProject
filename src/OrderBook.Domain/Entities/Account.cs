@@ -1,6 +1,4 @@
-﻿using System.Formats.Asn1;
-
-namespace OrderBook.Domain;
+﻿namespace OrderBook.Domain;
 
 public class Account
 {

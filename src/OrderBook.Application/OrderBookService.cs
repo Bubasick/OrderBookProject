@@ -1,8 +1,5 @@
-﻿using Azure.Core;
-using OrderBook.Application.Exceptions;
+﻿using OrderBook.Application.Exceptions;
 using OrderBook.Domain;
-using OrderBook.Infrastructure;
-using OrderBook.Infrastructure.Interfaces;
 
 namespace OrderBook.Application;
 

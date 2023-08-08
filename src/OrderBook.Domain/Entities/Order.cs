@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace OrderBook.Domain;
+﻿namespace OrderBook.Domain;
 
 public class Order
 {

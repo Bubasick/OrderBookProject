@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Globalization;
-
-namespace OrderBook.Infrastructure;
+﻿namespace OrderBook.Infrastructure;
 
 public static class Helper
 {
