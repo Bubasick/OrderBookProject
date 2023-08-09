@@ -13,7 +13,7 @@ namespace OrderBook.Tests
         public CalculationServiceTests()
         {
             _orderServiceMock = new Mock<OrderService>(null);
-            _orderServiceMock.Setup(x=> x.GetOrdersForSells(It.IsAny<IEnumerable<decimal>>())).Returns(TestDataHelper.GetFakeOrderForSellList());
+            _orderServiceMock.Setup(x => x.GetOrdersForSells(It.IsAny<IEnumerable<decimal>>())).Returns(TestDataHelper.GetFakeOrderForSellList());
             _orderServiceMock.Setup(x => x.GetOrdersForBuys(It.IsAny<IEnumerable<decimal>>())).Returns(TestDataHelper.GetFakeOrderForBuyList());
 
             _accountServiceMock = new Mock<AccountService>();

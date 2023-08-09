@@ -5,6 +5,7 @@ using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 
 namespace OrderBook.Tests;
+
 public class OrderServiceTests
 {
     private readonly OrderService _service;
@@ -25,12 +26,12 @@ public class OrderServiceTests
             1m
         };
 
-        var result =  _service.GetOrdersForBuys(ids);
+        var result = _service.GetOrdersForBuys(ids);
 
         //Assert
         Assert.NotNull(result);
         Assert.Equal(1, result.Count);
-        Assert.Equal(ids[0],result[0].Id);
+        Assert.Equal(ids[0], result[0].Id);
         Assert.Equal(OperationType.Sell, result[0].Type);
     }
 
@@ -80,5 +81,4 @@ public class OrderServiceTests
         Assert.NotNull(result);
         Assert.Throws<NotFoundException>(result);
     }
-
 }

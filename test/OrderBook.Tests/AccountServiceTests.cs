@@ -1,6 +1,7 @@
 using OrderBook.Application.Exceptions;
 using OrderBook.Application.Services;
 using OrderBook.Domain.Entities;
+
 namespace OrderBook.Tests;
 
 public class AccountServiceTests
@@ -10,7 +11,6 @@ public class AccountServiceTests
     public AccountServiceTests()
     {
         _service = new AccountService();
-
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class AccountServiceTests
             new Account(1, 1, 0)
         };
 
-        var result = () => _service.ValidateAndFilterAccounts(accounts,OperationType.Buy, 10);
+        var result = () => _service.ValidateAndFilterAccounts(accounts, OperationType.Buy, 10);
 
         //Assert
         Assert.NotNull(result);
@@ -110,7 +110,7 @@ public class AccountServiceTests
             new Account(2, 0, 0)
         };
 
-        var result =  _service.ValidateAndFilterAccounts(accounts, OperationType.Buy, 10);
+        var result = _service.ValidateAndFilterAccounts(accounts, OperationType.Buy, 10);
 
         //Assert
         Assert.Equal(1, result[0].MetaExchangeId);
