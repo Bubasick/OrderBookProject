@@ -4,6 +4,10 @@ namespace OrderBook.Application.Exceptions;
 
 public class BalanceTooLowException : Exception
 {
+    public BalanceTooLowException() : base($"Your balance is too low to perform this type of operation.")
+    {
+    }
+
     public BalanceTooLowException(decimal buyAmount) : base($"Your balance does not allow to perform this type of operation with the specified amount: {buyAmount}")
     {
     }

@@ -1,4 +1,5 @@
-﻿using OrderBook.Application.Exceptions;
+﻿using System.Security.Cryptography.X509Certificates;
+using OrderBook.Application.Exceptions;
 using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 
@@ -18,30 +19,44 @@ public class AccountService : IAccountService
         switch (operation)
         {
             case OperationType.Buy:
+            {
+                var result = accounts.Where(x => x.EuroBalance > 0).ToList();
+
+                if (!accounts.Any())
                 {
-                    var result = accounts.Where(x => x.EuroBalance > 0).ToList();
-
-                    if (!accounts.Any())
-                    {
-                        throw new BalanceTooLowException(btcAmount);
-                    }
-
-                    return result;
+                    throw new BalanceTooLowException(btcAmount);
                 }
+
+                return result;
+            }
 
             case OperationType.Sell:
+            {
+                var result = accounts.Where(x => x.BtcBalance > 0).ToList();
+
+                if (!accounts.Any() || accounts.Sum(x => x.BtcBalance) < btcAmount)
                 {
-                    var result = accounts.Where(x => x.BtcBalance > 0).ToList();
-
-                    if (!accounts.Any() || accounts.Sum(x => x.BtcBalance) < btcAmount)
-                    {
-                        throw new BalanceTooLowException(btcAmount);
-                    }
-
-                    return result;
+                    throw new BalanceTooLowException(btcAmount);
                 }
+
+                return result;
+            }
 
             default: return accounts;
         }
+    }
+    public void CheckIfBtcBalanceEmpty(List<Account> accounts)
+    {
+        if (accounts.TrueForAll(x => x.BtcBalance == 0))
+        {
+            throw new BalanceTooLowException();
+        };
+    }
+    public void CheckIfEuroBalanceEmpty(List<Account> accounts)
+    {
+        if (accounts.TrueForAll(x => x.EuroBalance == 0))
+        {
+            throw new BalanceTooLowException();
+        };
     }
 }

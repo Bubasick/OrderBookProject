@@ -43,24 +43,15 @@ public class CalculationService : ICalculationService
     {
         var result = new List<Order>();
 
-        foreach (var order in orders)
+        for (int i = 0; i < orders.Count; i++)
         {
             if (btcBuyAmount <= 0)
             {
-                return result;
+                break;
             }
 
-            if (!accounts.Any())
-            {
-                throw new BalanceTooLowException(btcBuyAmount);
-            }
-
+            var order = orders[i];
             var account = accounts.FirstOrDefault(x => x.MetaExchangeId == order.Id);
-
-            if (account == null)
-            {
-                continue;
-            }
 
             var howMuchCanBuy = new List<decimal>()
             {
@@ -75,8 +66,9 @@ public class CalculationService : ICalculationService
 
             if (account.EuroBalance == 0)
             {
-                accounts.Remove(account);
+                orders.RemoveAll(x=> x.Id == account.MetaExchangeId);
             }
+
             else if (account.EuroBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -93,7 +85,7 @@ public class CalculationService : ICalculationService
             result.Add(resultOrder);
         }
 
-        ValidateAmountAfterCalculation(btcBuyAmount);
+        PostCalculationValidation(btcBuyAmount, accounts, OperationType.Buy);
 
         return result;
     }
@@ -102,19 +94,17 @@ public class CalculationService : ICalculationService
     {
         var result = new List<Order>();
 
-        foreach (var order in orders)
+
+        for (int i = 0; i < orders.Count; i++)
         {
             if (btcSellAmount <= 0)
             {
                 return result;
             }
 
-            var account = accounts.FirstOrDefault(x => x.MetaExchangeId == order.Id);
+            var order = orders[i];
 
-            if (account == null)
-            {
-                continue;
-            }
+            var account = accounts.FirstOrDefault(x => x.MetaExchangeId == order.Id);
 
             var howMuchBtcCanSell = new List<decimal>()
             {
@@ -128,8 +118,9 @@ public class CalculationService : ICalculationService
 
             if (account.BtcBalance == 0)
             {
-                accounts.Remove(account);
+                orders.RemoveAll(x => x.Id == account.MetaExchangeId);
             }
+
             else if (account.BtcBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -146,15 +137,30 @@ public class CalculationService : ICalculationService
             result.Add(resultOrder);
         }
 
-        ValidateAmountAfterCalculation(btcSellAmount);
+        PostCalculationValidation(btcSellAmount, accounts, OperationType.Sell);
 
         return result;
     }
 
-    private void ValidateAmountAfterCalculation(decimal amount)
+    private void PostCalculationValidation(decimal amount, List<Account> accounts, OperationType operation)
     {
         if (amount > 0)
         {
+            switch (operation)
+            {
+                case OperationType.Buy:
+                {
+                    _accountService.CheckIfEuroBalanceEmpty(accounts);
+                    break;
+                }
+
+                case OperationType.Sell:
+                {
+                    _accountService.CheckIfBtcBalanceEmpty(accounts);
+                    break;
+                }
+            }
+
             throw new RequestExceedsMarketException(amount);
         }
     }
