@@ -68,6 +68,7 @@ public class CalculationService : ICalculationService
             {
                 orders.RemoveAll(x => x.Id == account.MetaExchangeId);
             }
+
             else if (account.EuroBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -118,6 +119,7 @@ public class CalculationService : ICalculationService
             {
                 orders.RemoveAll(x => x.Id == account.MetaExchangeId);
             }
+
             else if (account.BtcBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
