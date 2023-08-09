@@ -1,10 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using OrderBook.Application;
+using OrderBook.Application.Services;
 using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 using System.Globalization;
-using OrderBook.Application.Services;
 
 Console.WriteLine("Please, specify the type of operation you want to perform:");
 var operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());

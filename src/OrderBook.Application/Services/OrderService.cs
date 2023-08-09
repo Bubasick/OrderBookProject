@@ -7,6 +7,7 @@ namespace OrderBook.Application.Services;
 public class OrderService : IOrderService
 {
     private readonly IDataReaderService _dataReaderService;
+
     public OrderService(IDataReaderService dataReaderService)
     {
         _dataReaderService = dataReaderService;

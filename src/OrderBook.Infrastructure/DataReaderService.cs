@@ -8,6 +8,7 @@ namespace OrderBook.Infrastructure;
 public class DataReaderService : IDataReaderService
 {
     private readonly List<Order> _orders;
+
     public DataReaderService()
     {
         _orders = GetOrdersFromFile();

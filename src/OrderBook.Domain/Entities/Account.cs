@@ -2,7 +2,6 @@
 
 public class Account
 {
-
     private decimal _euroBalance;
     private decimal _btcBalance;
 
@@ -18,12 +17,14 @@ public class Account
     }
 
     public decimal MetaExchangeId { get; set; }
+
     public decimal BtcBalance
     {
         get => _btcBalance;
         set => _btcBalance = value.Round(8);
     }
-    public decimal EuroBalance 
+
+    public decimal EuroBalance
     {
         get => _euroBalance;
         set => _euroBalance = value.Round(2);

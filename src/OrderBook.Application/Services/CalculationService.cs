@@ -1,7 +1,7 @@
 ﻿using OrderBook.Application.Exceptions;
 using OrderBook.Application.Interfaces;
-using OrderBook.Domain.Entities;
 using OrderBook.Domain;
+using OrderBook.Domain.Entities;
 
 namespace OrderBook.Application.Services;
 
@@ -10,11 +10,13 @@ public class CalculationService : ICalculationService
     private readonly IOrderService _orderService;
 
     private readonly IAccountService _accountService;
+
     public CalculationService(IOrderService orderService, IAccountService accountService)
     {
         _orderService = orderService;
         _accountService = accountService;
     }
+
     public List<Order> CalculateOptimalStrategy(List<Account> accounts, OperationType operation, decimal amount)
     {
         accounts = _accountService.ValidateAndFilterAccounts(accounts, operation, amount);
@@ -75,7 +77,6 @@ public class CalculationService : ICalculationService
             {
                 accounts.Remove(account);
             }
-
             else if (account.EuroBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -129,7 +130,6 @@ public class CalculationService : ICalculationService
             {
                 accounts.Remove(account);
             }
-
             else if (account.BtcBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
