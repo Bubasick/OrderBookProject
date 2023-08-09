@@ -2,17 +2,17 @@
 
 namespace OrderBook.Application.Exceptions;
 
-public class CriticalCalculationError : Exception
+public class CriticalCalculationErrorException : Exception
 {
-    public CriticalCalculationError(decimal accountId) : base($"A critical calculation error occurred while processing your request. Account id:{accountId}")
+    public CriticalCalculationErrorException(decimal accountId) : base($"A critical calculation error occurred while processing your request. Account id:{accountId}")
     {
     }
 
-    public CriticalCalculationError(string message) : base(message)
+    public CriticalCalculationErrorException(string message) : base(message)
     {
     }
 
-    public CriticalCalculationError(string message, params object[] args)
+    public CriticalCalculationErrorException(string message, params object[] args)
         : base(string.Format(CultureInfo.CurrentCulture, message, args))
     {
     }
