@@ -7,7 +7,7 @@ namespace OrderBook.Infrastructure;
 
 public class DataReaderService : IDataReaderService
 {
-    public List<Order> GetOrders()
+    public virtual List<Order> GetOrders()
     {
         var path = Path.GetFullPath(@"C:/All/Projects//OrderBookProject/order_books_data");
         var lines = File.ReadAllLines(path);

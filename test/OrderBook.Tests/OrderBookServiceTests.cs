@@ -1,3 +1,4 @@
+using Moq;
 using OrderBook.Application;
 using OrderBook.Application.Exceptions;
 using OrderBook.Domain.Entities;
@@ -7,44 +8,16 @@ namespace OrderBook.Tests
 {
     public class OrderBookServiceTests
     {
-        private OrderBookService _service;
-
-        private List<Order> orders;
+        private readonly Mock<DataReaderService> _dataReaderMock;
+        private readonly OrderBookService _service;
 
         public OrderBookServiceTests()
         {
-            _service = new OrderBookService(new DataReaderService());
-            orders = new List<Order>()
-            {
-                new Order()
-                {
-                    Id = 1m,
-                    Amount = 0.1m,
-                    Price = 2002,
-                    Type = OperationType.Buy
-                },
-                new Order()
-                {
-                    Id = 2m,
-                    Amount = 0.2m,
-                    Price = 2000,
-                    Type = OperationType.Buy
-                },
-                new Order()
-                {
-                    Id = 1m,
-                    Amount = 0.1m,
-                    Price = 2000,
-                    Type = OperationType.Sell
-                },
-                new Order()
-                {
-                    Id = (decimal)2,
-                    Amount = (decimal)0.2,
-                    Price = 2002,
-                    Type = OperationType.Sell
-                }
-            };
+            _dataReaderMock = new Mock<DataReaderService>();
+
+            _dataReaderMock.Setup(x => x.GetOrders()).Returns(TestDataHelper.GetFakeOrderList());
+
+            _service = new OrderBookService(_dataReaderMock.Object);
         }
 
         [Fact]
@@ -111,7 +84,8 @@ namespace OrderBook.Tests
         }
 
         [Fact]
-        public void CalculateOptimalStrategy_WhenAmountExceedsAvailableOnMarket_ShouldThrow_RequestExceedsMarketException()
+        public void
+            CalculateOptimalStrategy_WhenAmountExceedsAvailableOnMarket_ShouldThrow_RequestExceedsMarketException()
         {
             var btcAmount = 100m;
             var operation = OperationType.Buy;
