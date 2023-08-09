@@ -1,7 +1,8 @@
-using OrderBook.Application;
 using OrderBook.Application.Interfaces;
+using OrderBook.Application.Services;
 using OrderBook.Infrastructure;
 using System.Text.Json.Serialization;
+using OrderBook.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,9 @@ builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerial
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IOrderBookService, OrderBookService>();
+
 builder.Services.AddSingleton<IDataReaderService, DataReaderService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

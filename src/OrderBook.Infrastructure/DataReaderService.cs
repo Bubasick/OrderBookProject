@@ -7,7 +7,13 @@ namespace OrderBook.Infrastructure;
 
 public class DataReaderService : IDataReaderService
 {
-    public virtual List<Order> GetOrders()
+    private readonly List<Order> _orders;
+    public DataReaderService()
+    {
+        _orders = GetOrdersFromFile();
+    }
+
+    private List<Order> GetOrdersFromFile()
     {
         var path = Path.GetFullPath(@"C:/All/Projects//OrderBookProject/order_books_data");
         var lines = File.ReadAllLines(path);
@@ -31,5 +37,10 @@ public class DataReaderService : IDataReaderService
             result.AddRange(asks);
         }
         return result;
+    }
+
+    public virtual List<Order> GetOrders()
+    {
+        return _orders.ConvertAll(order => new Order(order.Id, order.Type, order.Amount, order.Price));
     }
 }

@@ -1,6 +1,6 @@
 using Moq;
-using OrderBook.Application;
 using OrderBook.Application.Exceptions;
+using OrderBook.Application.Services;
 using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 
@@ -9,7 +9,7 @@ namespace OrderBook.Tests
     public class OrderBookServiceTests
     {
         private readonly Mock<DataReaderService> _dataReaderMock;
-        private readonly OrderBookService _service;
+        private readonly CalculationService _service;
 
         public OrderBookServiceTests()
         {

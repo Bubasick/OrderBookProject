@@ -2,7 +2,7 @@
 
 namespace OrderBook.Application.Interfaces;
 
-public interface IOrderBookService
+public interface ICalculationService
 {
     List<Order> CalculateOptimalStrategy(List<Account> accounts, OperationType operation, decimal amount);
 }

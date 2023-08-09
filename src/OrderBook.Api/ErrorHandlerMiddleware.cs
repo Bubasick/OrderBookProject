@@ -27,33 +27,26 @@ public class ErrorHandlerMiddleware
             switch (error)
             {
                 case NotFoundException e:
-                    // not found error
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
 
                 case RequestExceedsMarketException e:
-                    // not found error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
                 case BalanceTooLowException e:
-                    // not found error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
                 case EntityShouldBeUniqueException e:
-                    // not found error
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
-
                 case CriticalCalculationErrorException e:
-                    // not found error
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
 
                 default:
-                    // unhandled error
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
             }

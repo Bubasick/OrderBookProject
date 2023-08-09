@@ -4,6 +4,7 @@ using OrderBook.Application;
 using OrderBook.Domain.Entities;
 using OrderBook.Infrastructure;
 using System.Globalization;
+using OrderBook.Application.Services;
 
 Console.WriteLine("Please, specify the type of operation you want to perform:");
 var operationType = (OperationType)Enum.Parse(typeof(OperationType), Console.ReadLine());
@@ -38,7 +39,9 @@ for (var i = 0; i < accountAmount; i++)
 }
 
 var dataReaderService = new DataReaderService();
-var orderBookService = new OrderBookService(dataReaderService);
+var orderService = new OrderService(dataReaderService);
+var accountService = new AccountService();
+var orderBookService = new CalculationService(orderService, accountService);
 var result = new List<Order>();
 
 try

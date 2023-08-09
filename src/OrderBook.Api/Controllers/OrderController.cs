@@ -8,8 +8,8 @@ namespace OrderBook.Api.Controllers
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderBookService _orderBookService;
-        public OrderController(IOrderBookService orderBookService)
+        private readonly ICalculationService _orderBookService;
+        public OrderController(ICalculationService orderBookService)
         {
             _orderBookService = orderBookService;
         }

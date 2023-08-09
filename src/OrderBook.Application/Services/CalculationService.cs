@@ -2,30 +2,34 @@
 using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 using OrderBook.Domain;
-namespace OrderBook.Application;
 
-public class OrderBookService : IOrderBookService
+namespace OrderBook.Application.Services;
+
+public class CalculationService : ICalculationService
 {
-    private readonly IDataReaderService _dataReaderService;
-    public OrderBookService(IDataReaderService dataReaderService)
+    private readonly IOrderService _orderService;
+
+    private readonly IAccountService _accountService;
+    public CalculationService(IOrderService orderService, IAccountService accountService)
     {
-        _dataReaderService = dataReaderService;
+        _orderService = orderService;
+        _accountService = accountService;
     }
     public List<Order> CalculateOptimalStrategy(List<Account> accounts, OperationType operation, decimal amount)
     {
-        var orders = _dataReaderService.GetOrders();
-
-        ValidateAccounts(accounts);
+        accounts = _accountService.ValidateAndFilterAccounts(accounts, operation, amount);
 
         switch (operation)
         {
             case OperationType.Buy:
                 {
+                    var orders = _orderService.GetOrdersForBuys(accounts.Select(x => x.MetaExchangeId));
                     return CalculateOptimalBuys(orders, accounts, amount);
                 }
 
             case OperationType.Sell:
                 {
+                    var orders = _orderService.GetOrdersForSells(accounts.Select(x => x.MetaExchangeId));
                     return CalculateOptimalSells(orders, accounts, amount);
                 }
 
@@ -35,25 +39,6 @@ public class OrderBookService : IOrderBookService
 
     private List<Order> CalculateOptimalBuys(List<Order> orders, List<Account> accounts, decimal btcBuyAmount)
     {
-        accounts = accounts.Where(x => x.EuroBalance > 0).ToList();
-
-        if (!accounts.Any())
-        {
-            throw new BalanceTooLowException(btcBuyAmount);
-        }
-
-        var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
-
-        orders = orders
-            .Where(order => order.Id.HasValue && accountIdList.Contains(order.Id.Value))
-            .Where(x => x.Type == OperationType.Sell)
-            .OrderBy(x => x.Price).ToList();
-
-        if (!orders.Any())
-        {
-            throw new NotFoundException(nameof(Order));
-        }
-
         var result = new List<Order>();
 
         foreach (var order in orders)
@@ -74,7 +59,6 @@ public class OrderBookService : IOrderBookService
             {
                 continue;
             }
-            
 
             var howMuchCanBuy = new List<decimal>()
             {
@@ -82,10 +66,9 @@ public class OrderBookService : IOrderBookService
                 btcBuyAmount,
                 order.Amount
             }.Min();
-            
-            var buyValueInEuro =  decimal.Multiply(order.Price, howMuchCanBuy).Round(2);
+
+            var buyValueInEuro = decimal.Multiply(order.Price, howMuchCanBuy).Round(2);
             account.EuroBalance = decimal.Subtract(account.EuroBalance, buyValueInEuro);
-            account.BtcBalance = decimal.Add(account.BtcBalance, howMuchCanBuy);
             btcBuyAmount = decimal.Subtract(btcBuyAmount, howMuchCanBuy).Round(8);
 
             if (account.EuroBalance == 0)
@@ -109,36 +92,14 @@ public class OrderBookService : IOrderBookService
             result.Add(resultOrder);
         }
 
-        if (btcBuyAmount > 0)
-        {
-            throw new RequestExceedsMarketException(btcBuyAmount);
-        }
+        ValidateAmountAfterCalculation(btcBuyAmount);
 
         return result;
     }
 
     private List<Order> CalculateOptimalSells(List<Order> orders, List<Account> accounts, decimal btcSellAmount)
     {
-        accounts = accounts.Where(x => x.BtcBalance > 0).ToList();
-
-        if (!accounts.Any() || accounts.Sum(x=> x.BtcBalance) < btcSellAmount)
-        {
-            throw new BalanceTooLowException(btcSellAmount);
-        }
-
-        var accountIdList = accounts.Select(x => x.MetaExchangeId).ToList();
-
-        orders = orders
-            .Where(order => order.Id.HasValue && accountIdList.Contains(order.Id.Value))
-            .Where(x => x.Type == OperationType.Buy)
-            .OrderByDescending(x => x.Price).ToList(); ;
-
         var result = new List<Order>();
-
-        if (!orders.Any())
-        {
-            throw new NotFoundException(nameof(Order));
-        }
 
         foreach (var order in orders)
         {
@@ -161,7 +122,7 @@ public class OrderBookService : IOrderBookService
                 order.Amount
             }.Min();
 
-            account.BtcBalance = decimal.Subtract(account.BtcBalance,howMuchBtcCanSell);
+            account.BtcBalance = decimal.Subtract(account.BtcBalance, howMuchBtcCanSell);
             btcSellAmount = decimal.Subtract(btcSellAmount, howMuchBtcCanSell);
 
             if (account.BtcBalance == 0)
@@ -185,21 +146,16 @@ public class OrderBookService : IOrderBookService
             result.Add(resultOrder);
         }
 
-        if (btcSellAmount > 0)
-        {
-            throw new RequestExceedsMarketException(btcSellAmount);
-        }
+        ValidateAmountAfterCalculation(btcSellAmount);
 
         return result;
     }
 
-    private void ValidateAccounts(List<Account> accounts)
+    private void ValidateAmountAfterCalculation(decimal amount)
     {
-        var uniqueAccountIdsCount = accounts.Select(x => x.MetaExchangeId).Distinct().Count();
-
-        if (uniqueAccountIdsCount != accounts.Count)
+        if (amount > 0)
         {
-            throw new EntityShouldBeUniqueException(nameof(Account));
+            throw new RequestExceedsMarketException(amount);
         }
     }
 }
