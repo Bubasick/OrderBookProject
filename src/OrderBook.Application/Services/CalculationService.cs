@@ -66,9 +66,8 @@ public class CalculationService : ICalculationService
 
             if (account.EuroBalance == 0)
             {
-                orders.RemoveAll(x=> x.Id == account.MetaExchangeId);
+                orders.RemoveAll(x => x.Id == account.MetaExchangeId);
             }
-
             else if (account.EuroBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -93,7 +92,6 @@ public class CalculationService : ICalculationService
     private List<Order> CalculateOptimalSells(List<Order> orders, List<Account> accounts, decimal btcSellAmount)
     {
         var result = new List<Order>();
-
 
         for (int i = 0; i < orders.Count; i++)
         {
@@ -120,7 +118,6 @@ public class CalculationService : ICalculationService
             {
                 orders.RemoveAll(x => x.Id == account.MetaExchangeId);
             }
-
             else if (account.BtcBalance < 0)
             {
                 throw new CriticalCalculationErrorException(account.MetaExchangeId);
@@ -149,16 +146,16 @@ public class CalculationService : ICalculationService
             switch (operation)
             {
                 case OperationType.Buy:
-                {
-                    _accountService.CheckIfEuroBalanceEmpty(accounts);
-                    break;
-                }
+                    {
+                        _accountService.CheckIfEuroBalanceEmpty(accounts);
+                        break;
+                    }
 
                 case OperationType.Sell:
-                {
-                    _accountService.CheckIfBtcBalanceEmpty(accounts);
-                    break;
-                }
+                    {
+                        _accountService.CheckIfBtcBalanceEmpty(accounts);
+                        break;
+                    }
             }
 
             throw new RequestExceedsMarketException(amount);
