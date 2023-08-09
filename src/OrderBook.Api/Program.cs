@@ -12,7 +12,7 @@ builder.Services.AddControllers().AddJsonOptions(options => { options.JsonSerial
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOrderBookService, OrderBookService>();
-builder.Services.AddScoped<IDataReaderService, DataReaderService>();
+builder.Services.AddSingleton<IDataReaderService, DataReaderService>();
 
 var app = builder.Build();
 

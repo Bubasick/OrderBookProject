@@ -1,6 +1,7 @@
 using OrderBook.Application;
 using OrderBook.Application.Exceptions;
 using OrderBook.Domain.Entities;
+using OrderBook.Infrastructure;
 
 namespace OrderBook.Tests
 {
@@ -12,7 +13,7 @@ namespace OrderBook.Tests
 
         public OrderBookServiceTests()
         {
-            _service = new OrderBookService();
+            _service = new OrderBookService(new DataReaderService());
             orders = new List<Order>()
             {
                 new Order()
@@ -64,7 +65,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -84,7 +85,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = () => _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = () => _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -102,7 +103,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = () => _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = () => _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -120,7 +121,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = () => _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = () => _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -139,7 +140,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = () => _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = () => _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);
@@ -164,7 +165,7 @@ namespace OrderBook.Tests
             };
 
             //Act
-            var actual = _service.CalculateOptimalStrategy(orders, accounts, operation, btcAmount);
+            var actual = _service.CalculateOptimalStrategy(accounts, operation, btcAmount);
 
             //Assert
             Assert.NotNull(actual);

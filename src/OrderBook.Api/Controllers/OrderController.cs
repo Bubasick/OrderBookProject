@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using OrderBook.Api.Requests;
 using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 
@@ -9,17 +8,16 @@ namespace OrderBook.Api.Controllers
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderBookService _service;
-
-        public OrderController(IOrderBookService service)
+        private readonly IOrderBookService _orderBookService;
+        public OrderController(IOrderBookService orderBookService)
         {
-            _service = service;
+            _orderBookService = orderBookService;
         }
 
         [HttpPost("CalculateOptimalStrategy")]
-        public IEnumerable<Order> CalculateOptimalStrategy([FromBody] CalculateOptimalStrategyRequest request, OperationType operation, decimal btcAmount)
+        public IEnumerable<Order> CalculateOptimalStrategy([FromBody]List<Account> accounts, OperationType operation, decimal btcAmount)
         {
-            return _service.CalculateOptimalStrategy(request.Orders, request.Accounts, operation, btcAmount);
+            return _orderBookService.CalculateOptimalStrategy(accounts, operation, btcAmount);
         }
     }
 }

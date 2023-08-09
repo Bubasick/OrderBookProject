@@ -6,8 +6,15 @@ namespace OrderBook.Application;
 
 public class OrderBookService : IOrderBookService
 {
-    public List<Order> CalculateOptimalStrategy(List<Order> orders, List<Account> accounts, OperationType operation, decimal amount)
+    private readonly IDataReaderService _dataReaderService;
+    public OrderBookService(IDataReaderService dataReaderService)
     {
+        _dataReaderService = dataReaderService;
+    }
+    public List<Order> CalculateOptimalStrategy(List<Account> accounts, OperationType operation, decimal amount)
+    {
+        var orders = _dataReaderService.GetOrders();
+
         ValidateAccounts(accounts);
 
         switch (operation)

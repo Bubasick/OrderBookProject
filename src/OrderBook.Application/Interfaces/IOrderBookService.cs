@@ -4,5 +4,5 @@ namespace OrderBook.Application.Interfaces;
 
 public interface IOrderBookService
 {
-    List<Order> CalculateOptimalStrategy(List<Order> orders, List<Account> accounts, OperationType operation, decimal amount);
+    List<Order> CalculateOptimalStrategy(List<Account> accounts, OperationType operation, decimal amount);
 }

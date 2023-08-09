@@ -4,5 +4,5 @@ namespace OrderBook.Application.Interfaces;
 
 public interface IDataReaderService
 {
-    List<MetaExchange> GetData();
+    List<Order> GetOrders();
 }

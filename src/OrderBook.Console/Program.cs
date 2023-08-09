@@ -38,17 +38,12 @@ for (var i = 0; i < accountAmount; i++)
 }
 
 var dataReaderService = new DataReaderService();
-var orderBookService = new OrderBookService();
+var orderBookService = new OrderBookService(dataReaderService);
 var result = new List<Order>();
 
 try
 {
-    var metaExchanges = dataReaderService.GetData();
-    var orders = metaExchanges.SelectMany(x => x.Bids.Select(x => x.Order)).ToList();
-    var asks = metaExchanges.SelectMany(x => x.Asks.Select(x => x.Order)).ToList();
-
-    orders.AddRange(asks);
-    result = orderBookService.CalculateOptimalStrategy(orders, accounts, operationType, btcAmount);
+    result = orderBookService.CalculateOptimalStrategy(accounts, operationType, btcAmount);
 }
 catch (Exception ex)
 {

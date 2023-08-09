@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\OrderBook.Application\OrderBook.Application.csproj" />
     <ProjectReference Include="..\..\src\OrderBook.Domain\OrderBook.Domain.csproj" />
+    <ProjectReference Include="..\..\src\OrderBook.Infrastructure\OrderBook.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
