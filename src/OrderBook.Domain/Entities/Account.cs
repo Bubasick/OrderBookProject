@@ -1,7 +1,13 @@
-﻿namespace OrderBook.Domain.Entities;
+﻿using OrderBook.Application;
+
+namespace OrderBook.Domain.Entities;
 
 public class Account
 {
+
+    private decimal _euroBalance;
+    private decimal _btcBalance;
+
     public Account()
     {
     }
@@ -14,6 +20,14 @@ public class Account
     }
 
     public decimal MetaExchangeId { get; set; }
-    public decimal BtcBalance { get; set; }
-    public decimal EuroBalance { get; set; }
+    public decimal BtcBalance
+    {
+        get => _btcBalance;
+        set => _btcBalance = value.Round(8);
+    }
+    public decimal EuroBalance 
+    {
+        get => _euroBalance;
+        set => _euroBalance = value.Round(2);
+    }
 }
