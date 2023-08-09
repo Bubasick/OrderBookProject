@@ -1,7 +1,10 @@
 # OrderBookProject
+In OrderBook.Infrastructure project, please change the path to order_books_data file to your local path.
+![image](https://github.com/Bubasick/OrderBookProject/assets/45142923/3786a92c-f3d8-4d5d-a6a9-5f6d6a98caa2)
+
 MetaexchangeId is the id that you can find in the file order_books_data. In each row, we have metaexchange. Inside each metaexchange we have multiple orders.
 Please, use this id for account id when inputing data.
-![image](https://github.com/Bubasick/OrderBookProject/assets/45142923/bc178b5f-f541-4844-ac9e-666bc4809276)
+![image](https://github.com/Bubasick/OrderBookProject/assets/45142923/048d3dc4-f2ee-44d9-8b92-67b0342e508f)
 
 OrderBook.Console - part 1 solution\
 
