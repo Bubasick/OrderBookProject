@@ -67,12 +67,11 @@ public class OrderBookService : IOrderBookService
             {
                 continue;
             }
+            
 
-            var howMuchCanBuy = account.EuroBalance / order.Price;
-
-            howMuchCanBuy = new List<decimal>()
+            var howMuchCanBuy = new List<decimal>()
             {
-                howMuchCanBuy,
+                account.EuroBalance / order.Price,
                 buyAmount,
                 order.Amount
             }.Min();
