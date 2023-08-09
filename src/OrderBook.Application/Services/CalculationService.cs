@@ -25,22 +25,22 @@ public class CalculationService : ICalculationService
         {
             case OperationType.Buy:
                 {
-                    var orders = _orderService.GetOrdersForBuys(accounts.Select(x => x.MetaExchangeId));
-                    return CalculateOptimalBuys(orders, accounts, amount);
+                    return CalculateOptimalBuys(accounts, amount);
                 }
 
             case OperationType.Sell:
                 {
-                    var orders = _orderService.GetOrdersForSells(accounts.Select(x => x.MetaExchangeId));
-                    return CalculateOptimalSells(orders, accounts, amount);
+                    return CalculateOptimalSells(accounts, amount);
                 }
 
             default: return new List<Order>();
         }
     }
 
-    private List<Order> CalculateOptimalBuys(List<Order> orders, List<Account> accounts, decimal btcBuyAmount)
+    private List<Order> CalculateOptimalBuys(List<Account> accounts, decimal btcBuyAmount)
     {
+        var orders = _orderService.GetOrdersForBuys(accounts.Select(x => x.MetaExchangeId));
+
         var result = new List<Order>();
 
         for (int i = 0; i < orders.Count; i++)
@@ -89,8 +89,10 @@ public class CalculationService : ICalculationService
         return result;
     }
 
-    private List<Order> CalculateOptimalSells(List<Order> orders, List<Account> accounts, decimal btcSellAmount)
+    private List<Order> CalculateOptimalSells(List<Account> accounts, decimal btcSellAmount)
     {
+        var orders = _orderService.GetOrdersForSells(accounts.Select(x => x.MetaExchangeId));
+
         var result = new List<Order>();
 
         for (int i = 0; i < orders.Count; i++)
