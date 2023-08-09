@@ -41,6 +41,17 @@ public class ErrorHandlerMiddleware
                     response.StatusCode = (int)HttpStatusCode.BadRequest;
                     break;
 
+                case EntityShouldBeUniqueException e:
+                    // not found error
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+
+
+                case CriticalCalculationErrorException e:
+                    // not found error
+                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    break;
+
                 default:
                     // unhandled error
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;

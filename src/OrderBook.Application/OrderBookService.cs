@@ -95,7 +95,7 @@ public class OrderBookService : IOrderBookService
 
             else if (account.EuroBalance < 0)
             {
-                throw new CriticalCalculationError(account.MetaExchangeId);
+                throw new CriticalCalculationErrorException(account.MetaExchangeId);
             }
 
             var resultOrder = new Order()
@@ -171,7 +171,7 @@ public class OrderBookService : IOrderBookService
 
             else if (account.BtcBalance < 0)
             {
-                throw new CriticalCalculationError(account.MetaExchangeId);
+                throw new CriticalCalculationErrorException(account.MetaExchangeId);
             }
 
             var resultOrder = new Order()

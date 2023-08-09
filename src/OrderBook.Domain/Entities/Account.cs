@@ -1,6 +1,4 @@
-﻿using OrderBook.Application;
-
-namespace OrderBook.Domain.Entities;
+﻿namespace OrderBook.Domain.Entities;
 
 public class Account
 {
