@@ -7,5 +7,7 @@ Please, use this id for account id when inputing data.
 ![image](https://github.com/Bubasick/OrderBookProject/assets/45142923/048d3dc4-f2ee-44d9-8b92-67b0342e508f)
 
 OrderBook.Console - part 1 solution
-
 OrderBook.Api - part 2 solution
+
+Please, set one of the as your startup project and build the application.
+![image](https://github.com/Bubasick/OrderBookProject/assets/45142923/c1deca1d-b2f2-413d-93c6-bb3dc50cb406)
