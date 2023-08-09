@@ -22,7 +22,7 @@ public class OrderService : IOrderService
         return result;
     }
 
-    public List<Order> GetOrdersForBuys(IEnumerable<decimal> ids)
+    public virtual List<Order> GetOrdersForBuys(IEnumerable<decimal> ids)
     {
         var result = GetOrders(ids)
             .Where(x => x.Type == OperationType.Sell)
@@ -34,7 +34,7 @@ public class OrderService : IOrderService
         return result;
     }
 
-    public List<Order> GetOrdersForSells(IEnumerable<decimal> ids)
+    public virtual List<Order> GetOrdersForSells(IEnumerable<decimal> ids)
     {
         var result = GetOrders(ids)
             .Where(x => x.Type == OperationType.Buy)

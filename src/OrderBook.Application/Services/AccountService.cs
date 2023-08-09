@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using OrderBook.Application.Exceptions;
+﻿using OrderBook.Application.Exceptions;
 using OrderBook.Application.Interfaces;
 using OrderBook.Domain.Entities;
 
@@ -7,7 +6,7 @@ namespace OrderBook.Application.Services;
 
 public class AccountService : IAccountService
 {
-    public List<Account> ValidateAndFilterAccounts(List<Account> accounts, OperationType operation, decimal btcAmount)
+    public virtual List<Account>  ValidateAndFilterAccounts(List<Account> accounts, OperationType operation, decimal btcAmount)
     {
         var uniqueAccountIdsCount = accounts.Select(x => x.MetaExchangeId).Distinct().Count();
 
@@ -22,7 +21,7 @@ public class AccountService : IAccountService
             {
                 var result = accounts.Where(x => x.EuroBalance > 0).ToList();
 
-                if (!accounts.Any())
+                if (!result.Any())
                 {
                     throw new BalanceTooLowException(btcAmount);
                 }
@@ -34,7 +33,7 @@ public class AccountService : IAccountService
             {
                 var result = accounts.Where(x => x.BtcBalance > 0).ToList();
 
-                if (!accounts.Any() || accounts.Sum(x => x.BtcBalance) < btcAmount)
+                if (!result.Any() || result.Sum(x => x.BtcBalance) < btcAmount)
                 {
                     throw new BalanceTooLowException(btcAmount);
                 }
@@ -45,14 +44,14 @@ public class AccountService : IAccountService
             default: return accounts;
         }
     }
-    public void CheckIfBtcBalanceEmpty(List<Account> accounts)
+    public virtual void CheckIfBtcBalanceEmpty(List<Account> accounts)
     {
         if (accounts.TrueForAll(x => x.BtcBalance == 0))
         {
             throw new BalanceTooLowException();
         };
     }
-    public void CheckIfEuroBalanceEmpty(List<Account> accounts)
+    public virtual void CheckIfEuroBalanceEmpty(List<Account> accounts)
     {
         if (accounts.TrueForAll(x => x.EuroBalance == 0))
         {
